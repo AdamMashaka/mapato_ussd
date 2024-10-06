@@ -11,7 +11,7 @@ africastalking.initialize(username, api_key)
 sms = africastalking.SMS
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/ussd', methods=['POST', 'GET'])
 def ussd_callback():
     global response_1, response_2
     session_id = request.values.get(
