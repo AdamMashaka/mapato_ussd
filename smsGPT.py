@@ -2,10 +2,13 @@ from flask import Flask, request
 import openai
 import requests
 import traceback
+import os
 
 app = Flask(__name__)
 
-# Set your ChatGPT API key
+# Set your API keys
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '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')  # Replace with your OpenAI API key
+AFRICASTALKING_API_KEY = os.getenv('AFRICASTALKING_API_KEY', 'atsk_ad1374226cbf8177b2374f7375a805f176765eb5542d40cbcf3dd2cf6e69eed9d120a589')  # Replace with your Africa's Talking API key
 
 # Bot's name
 bot_name = "SHAMBA BOT"
@@ -14,7 +17,7 @@ bot_name = "SHAMBA BOT"
 bot_language = "sw"  # Swahili
 
 # Topic for the conversation
-conversation_topic = "kilimo cha mahindi", "Mabadiliko ya hali ya kwenye kilimo, Pia na wadudu na magonjwa mbalimbali ya mazao, Pia na mbinu bora za kilimo" 
+conversation_topic = "kilimo cha mahindi, mabadiliko ya hali ya kwenye kilimo, wadudu na magonjwa ya mazao, mbinu bora za kilimo"
 
 # Greeting message in Swahili
 greeting = f"{bot_name}: Karibu! Mimi ni {bot_name} nipo kwa ajili ya kukupa taarifa kuhusiana na kilimo, wadudu waharibifu na magonjwa ya mazao Tafadhali niambie unahitaji msaada wa aina gani."
@@ -22,7 +25,7 @@ greeting = f"{bot_name}: Karibu! Mimi ni {bot_name} nipo kwa ajili ya kukupa taa
 # Function to interact with the bot
 def chat_with_bot(bot_name, language, topic, user_message, conversation_history=None):
     # Create system and user messages
-    system_message = f"{bot_name}: Karibu! Mimi ni {bot_name}. Nipo kwa ajili ya kukupa taarifa kuhusiana na kilimo, wadudu waharibifu na magonjwa ya mazao Tafadhali niambie unahitaji msaada wa aina gani."
+    system_message = f"{bot_name}: Karibu! Mimi ni {bot_name}. Nipo kwa ajili ya kukupa taarifa kuhusiana na kilimo, wadudu waharibifu na magonjwa ya mazao. Tafadhali niambie unahitaji msaada wa aina gani."
     user_message = f"User: {user_message}"
 
     # Combine system and user messages with existing conversation history
@@ -38,27 +41,24 @@ def chat_with_bot(bot_name, language, topic, user_message, conversation_history=
         model="gpt-3.5-turbo",
         messages=messages,
         max_tokens=150,
-        api_key=OPENAI_API_KEY
+        api_key=OPENAI_API_KEY  # Add OpenAI API Key here
     )
 
     # Extract and return the assistant's reply
     assistant_reply = response['choices'][0]['message']['content']
-    
-    # Extract the updated conversation history for future interactions
-    # updated_history = messages + [{"role": "assistant", "content": assistant_reply}]
 
-    return assistant_reply,
+    return assistant_reply
 
 
 @app.route('/')
 def smart_shamba():
     return 'Lima Kijanja'
 
-@app.route('/sms_callback', methods=['POST'])
+@app.route('/sms_callback', methods=['POST'])  # Revert back to /sms_callback
 def sms_callback():
     try:
-        user_message = request.form["text"]
-        sender = request.form["from"]
+        user_message = request.form.get("text")
+        sender = request.form.get("from")
 
         # Check for common greetings and respond with the greeting message
         if user_message.lower() in ["habari", "hello", "mambo"]:
@@ -82,12 +82,12 @@ def response_to_sms(recipient_phone_number, message):
     url = "https://api.sandbox.africastalking.com/version1/messaging"
     data = {
         "username": "sandbox",
-        "to": recipient_phone_number,
+        "to": recipient_phone_number,  # Use the recipient_phone_number from the callback
         "message": message,
-        "from": "3607"
+        "from": "45407"
     }
     headers = {
-        "apikey": AFRICASTALKING_API_KEY,
+        "apikey": AFRICASTALKING_API_KEY,  # Add Africa's Talking API Key here
         "Accept": "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
     }
@@ -107,3 +107,4 @@ def response_to_sms(recipient_phone_number, message):
 
 if __name__ == '__main__':
     app.run(debug=True)
+

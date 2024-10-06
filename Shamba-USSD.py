@@ -6,7 +6,7 @@ import requests
 
 app = Flask(__name__)
 username = "sandbox"
-api_key = "f9adeb64e252e6ab6ad32cfb36d68e924d6174baada05e58e37ce79aa7ac68d5"
+api_key = "atsk_29feec37d1f9df254c0b75ff39313463a539bcd8159a30c890a5d18a560e8c9f13def809"
 africastalking.initialize(username, api_key)
 sms = africastalking.SMS
 
@@ -27,7 +27,7 @@ def ussd_callback():
     # ussd logic
     if text == "":
         # main menu
-        response = "CON Karibu SMART SHAMBA Kupata Huduma Kuhusu KILIMO:\n"
+        response = "CON Karibu Kijani cart Kupata Huduma kuhusu KILIMO:\n"
         "/n"
         response += "Chagua sehemu unayotaka:\n"
         response += "1. Habari kuhusu Bei ya Mazao\n"
@@ -703,29 +703,38 @@ def get_crops_by_region(region):
 
 
 def get_weather_data(location):
-    # Pata taarifa ya hali ya hewa kutoka OpenWeather API
-    base_url = "https://api.openweathermap.org/data/2.5/weather"
-    params = {
-        "q": location,
-        "appid": '208912e57d4dc5b2cbd3060ef955416a',
-        "units": "metric"
-    }
+    # Replace with your Meteomatics API username and password
+    username = 'universityofdaressalaam_katani_adam'
+    password = '14J5fpGpGS'
+    
+    # Meteomatics API endpoint for current weather data
+    base_url = "https://api.meteomatics.com/"
+    # Use a specific time, e.g., 'now'
+    time = 'now'
+    # Define the parameters for the API call
+    params = f"{time}/t_2m,C/precip_1h:mm/{location}/json"
+
+    # Construct the full URL
+    url = f"{base_url}{params}"
 
     try:
-        response = requests.get(base_url, params=params)
+        # Make the request with basic authentication
+        response = requests.get(url, auth=(username, password))
         data = response.json()
 
         if response.status_code == 200:
             weather_data = {
-                "temperature": data["main"]["temp"],
-                "description": data["weather"][0]["description"]
+                "temperature": data['data'][0]['coordinates'][0]['dates'][0]['value'],
+                "precipitation": data['data'][1]['coordinates'][0]['dates'][0]['value'],
+                "description": "Current weather data retrieved"
             }
             return weather_data
         else:
             return None
 
     except requests.exceptions.RequestException:
-        return ("There is the fucking error here ")
+        return "There is an error in the request"
+
 
 
 if __name__ == "__main__":
