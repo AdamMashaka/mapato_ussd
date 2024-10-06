@@ -3,7 +3,7 @@ import requests
 
 # Function to call NASA API with coordinates
 def get_farm_analysis(latitude, longitude):
-    API_BASE_URL = "https://nasa-challenge-hackathon.onrender.com/farm-analysis"
+    API_BASE_URL = "https://nasa-challenge-hackathon.onrender.com/docs"
     payload = {
         "latitude": latitude,
         "longitude": longitude
