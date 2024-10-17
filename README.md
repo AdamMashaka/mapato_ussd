@@ -15,7 +15,7 @@
 
 # Before to clone in your machine you have to install  
      GIT 
-*just go to your search engine then write install/download git you will see it look as yes we code    
+*just go to your search engine then write install/download git you will see it look as yes we code*   
 
 then type this in your terminal
 
