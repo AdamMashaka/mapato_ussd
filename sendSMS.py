@@ -4,8 +4,8 @@ import requests
 import os
 
 AFRICASTALKING_API_KEY = "f9adeb64e252e6ab6ad32cfb36d68e924d6174baada05e58e37ce79aa7ac68d5"
-STROLID_API_URL = "https://api.strolid.com/your-endpoint"  # Replace with the actual endpoint
-STROLID_API_KEY = "your_strolid_api_key"  # Replace with your Strolid API key
+STROLID_API_URL = "https://api.strolid.com/your-endpoint" # Here is where is my strolid credentials
+STROLID_API_KEY = "your_strolid_api_key" 
 
 app = Flask(__name__)
 username = "sandbox"

@@ -32,7 +32,8 @@ def sms_callback():
 
 
 def get_response(message):
-    # Check if the user's message matches any of the word responses in the dictionary
+    # Check if the user's message matches any of the word responses in the dictionary of open AI
+    
     for word, response in word_responses.items():
         if word in message.lower():
             return response

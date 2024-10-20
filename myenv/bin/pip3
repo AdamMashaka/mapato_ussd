@@ -1,5 +1,6 @@
 #!/Users/mav/Documents/GitHub/SMART-SHAMBA-USSD-and-2-WAY-SMS/myenv/bin/python3.12
 # -*- coding: utf-8 -*-
+#my configuration
 import re
 import sys
 from pip._internal.cli.main import main
