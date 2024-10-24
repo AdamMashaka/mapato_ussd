@@ -6,16 +6,14 @@ import requests
 
 app = Flask(__name__)
 username = "sandbox"
-api_key = "atsk_6ff803f33862349383d542125f828c0600a2d3972092c6ecf037e9ace9f391d15864429b"
+api_key = "atsk_d65b63bd0ac289c10ac7e4cf16747915b1733bb096aebaa905af0776ce74a60222b7d1c5"
 africastalking.initialize(username, api_key)
 sms = africastalking.SMS
 
-
-@app.route('/ussd', methods=['POST', 'GET'])
+@app.route('/', methods=['POST', 'GET'])
 def ussd_callback():
     global response_1, response_2
-    session_id = request.values.get(*384*34980#
-        "sessionId", "API_API")
+    session_id = request.values.get("sessionId", "atsk_d65b63bd0ac289c10ac7e4cf16747915b1733bb096aebaa905af0776ce74a60222b7d1c5")
     service_code = request.values.get("serviceCode", "*384#")
     phone_number = request.values.get("phoneNumber", +255694021848)
     text = request.values.get("text", "default")
@@ -24,20 +22,20 @@ def ussd_callback():
 
     response = ""
 
-    # ussd logic
+    #ussd logic
     if text == "":
-        # main menu
-        response = "CON Karibu Kijani cart Kupata Huduma kuhusu KILIMO:\n"
+        #main menu
+        response = "CON Karibu MAPATO AI Kupata Huduma Kuhusu KILIMO:\n"
         "/n"
         response += "Chagua sehemu unayotaka:\n"
         response += "1. Habari kuhusu Bei ya Mazao\n"
         response += "2. Ushauri wa Kilimo\n"
         response += "3. Habari kuhusu Hali ya hewa\n"
-        response += "4. Habari kuhusu shamba lako\n"
+        response += "4. Mnunuzi\n"
         response += "5. Msaada wa Kiufundi\n"
 
     elif text == "1":
-        # sub menu 1
+        #sub menu 1
         response = "CON Chagua Mazao unayotaka kujua Bei\n"
         response += "1. Mahindi\n"
         response += "2. Maharage\n"
@@ -59,17 +57,16 @@ def ussd_callback():
             response = f"END Bei ya mahindi katika eno lako la {location} ni {maize_price} TSH/100kg "
             try:
                 # sending msg
-                sms_response = sms.send(
-                    f"Bei ya mahindi katika eno lako la {location} ni {maize_price} TSH/100kg ", sms_phone_number)
+                sms_response = sms.send(f"Bei ya mahindi katika eno lako la {location} ni {maize_price} TSH/100kg ", sms_phone_number)
                 print(sms_response)
                 # catching error
             except Exception as e:
                 print("There is fucking Error {}".format(e))
         else:
-            response = f"END Kama Bei ya mahindi ikipanda au kupungua Tutaujurisha Mpendwa "
+             response = f"END Kama Bei ya mahindi ikipanda au kupungua Tutaujurisha Mpendwa "
 
     elif text == "1*2":
-        response = "CON Ingiza eneo lako la kilimo la maharage"
+        response = "CON Ingiza eneo lako la kilimo la maharage"         
     elif text.startswith("1*2*"):
         location = text.split('*')[2]
 
@@ -91,7 +88,7 @@ def ussd_callback():
             response = f"END Kama Bei ya maharage ikipanda au kupungua Tutakujurisha Mpendwa "
 
     elif text == "1*3":
-        response = "CON Ingiza eneo lako la kilimo la viazi"
+        response = "CON Ingiza eneo lako la kilimo la viazi"  
 
     elif text.startswith("1*3"):
         location = text.split('*')[2]
@@ -113,8 +110,8 @@ def ussd_callback():
         else:
             response = f"END Kama Bei ya Viazi ikipanda au kupungua Tutakujurisha Mpendwa "
 
-    elif text.startswith("1*4"):
-        location = text.split("*")[2]
+    elif text.startswith("1*4")  :
+        location = text.split("*") [2]
         uwele_price = get_uwele_price(location)
 
         if uwele_price:
@@ -127,9 +124,9 @@ def ussd_callback():
             print(sms_response)
             # catching error
         except Exception as e:
-            print("There is fucking Error {}".format(e))
+         print("There is fucking Error {}".format(e))
         else:
-            response = f"END Kama Bei ya Uwele ikipanda au kupungua Tutakujurisha Mpendwa "
+          response = f"END Kama Bei ya Uwele ikipanda au kupungua Tutakujurisha Mpendwa "
 
     elif text.startswith("1*5"):
         location = text.split("*")[3]
@@ -147,8 +144,10 @@ def ussd_callback():
         except Exception as e:
             print("There is fucking Error {}".format(e))
 
+
         else:
             response = f"END Kama Bei ya Ulezi ikipanda au kupungua Tutakujurisha Mpendwa "
+
 
     elif text.startswith("1*6"):
         location = text.split("*")[2]
@@ -169,6 +168,7 @@ def ussd_callback():
         else:
             response = f"END Kama Bei ya Mtama ikipanda au kupungua Tutakujurisha Mpendwa "
 
+
     elif text.startswith("1*7"):
         location = text.split("*")[2]
         ngano_price = get_ngano_price(location)
@@ -185,6 +185,7 @@ def ussd_callback():
         except Exception as e:
             print("There is fucking Error {}".format(e))
 
+
         else:
             response = f"END Kama Bei ya Ngano ikipanda au kupungua Tutakujurisha Mpendwa "
 
@@ -197,7 +198,7 @@ def ussd_callback():
         response += "4. Ushauri wa Kuvuna na Kuhifadhi"
 
     elif text == "2*1":
-        response = "END USHAURI WA UPANDAJI WAMAZAO:\n"
+        response =  "END USHAURI WA UPANDAJI WAMAZAO:\n"
         response += "- Tumia mbegu bora na zenye ubora ilikupata mazao mazuri\n"
         response += "- Tumia mbolea kulingana na mahitaji ya mazao yako\n"
         response += "- Panda kwa kuzingatia mpangilio na umbali sahihi\n"
@@ -205,12 +206,12 @@ def ussd_callback():
         response += "- Kwa ushauri zaidi wasiliana nasi kupitia namba +255689737839"
 
         try:
-            # sending msg
-            sms_response = sms.send(response, sms_phone_number)
-            print(sms_response)
-            # catching error
+           #sending msg
+           sms_response = sms.send(response, sms_phone_number)
+           print(sms_response)
+           #catching error
         except Exception as e:
-            print("There is fucking Error {}".format(e))
+            print("There is fucking Error {}".format(e)) 
 
     elif text == '2*2':
         # Ushauri wa Kudhibiti Wadudu
@@ -220,12 +221,12 @@ def ussd_callback():
         response += "- Fanya ufuatiliaji wa mara kwa mara na udhibiti wadudu mapema"
 
         try:
-            # sending msg
-            sms_response = sms.send(response, sms_phone_number)
-            print(sms_response)
-            # catching error
+           #sending msg
+           sms_response = sms.send(response, sms_phone_number)
+           print(sms_response)
+           #catching error
         except Exception as e:
-            print("There is fucking Error {}".format(e))
+            print("There is fucking Error {}".format(e)) 
 
     elif text == '2*3':
         # Ushauri wa Kuboresha Udongo
@@ -236,12 +237,12 @@ def ussd_callback():
         response += "- Fanya mzunguko wa mazao"
 
         try:
-            # sending msg
-            sms_response = sms.send(response, sms_phone_number)
-            print(sms_response)
-            # catching error
+           #sending msg
+           sms_response = sms.send(response, sms_phone_number)
+           print(sms_response)
+           #catching error
         except Exception as e:
-            print("There is fucking Error {}".format(e))
+            print("There is fucking Error {}".format(e)) 
 
     elif text == '2*4':
         # Ushauri wa Kuvuna na Kuhifadhi
@@ -251,15 +252,17 @@ def ussd_callback():
         response += "- Weka tahadhari dhidi ya wadudu na kuoza kwa mazao"
 
         try:
-            # sending msg
-            sms_response = sms.send("Ushauri wa kuvuna na kuhifadhi:\n"
-                                    "** Kusanya mazao kwa wakati unaofaa na kwa njia sahihi\n"
-                                    "** Hifadhi mazao katika mazingira safi na yenye ubora\n"
-                                    "** Weka tahadhari dhidi ya wadudu na kuoza kwa mazao", sms_phone_number)
-            print(sms_response)
-            # catching error
+           #sending msg
+           sms_response = sms.send( "Ushauri wa kuvuna na kuhifadhi:\n"
+         "** Kusanya mazao kwa wakati unaofaa na kwa njia sahihi\n"
+         "** Hifadhi mazao katika mazingira safi na yenye ubora\n"
+         "** Weka tahadhari dhidi ya wadudu na kuoza kwa mazao"
+                                                               , sms_phone_number)
+           print(sms_response)
+           #catching error
         except Exception as e:
-            print("There is fucking Error {}".format(e))
+            print("There is fucking Error {}".format(e)) 
+
 
     elif text == "5":
         response = "CON Chagua njia ya kuwasiliana na msaada wa kiufundi:\n"
@@ -269,58 +272,53 @@ def ussd_callback():
 
     elif text == "5*1":
         response = "END Piga simu kwa watalaamu wetu wakilimo kwa namba +255713581041."
-
+        
         try:
-            # sending msg
-            sms_response = sms.send(
-                "Piga simu kwa watalaamu wetu wakilimo kwa namba +255713581041.", sms_phone_number)
-            print(sms_response)
-            # catching error
+           #sending msg
+           sms_response = sms.send("Piga simu kwa watalaamu wetu wakilimo kwa namba +255713581041.", sms_phone_number)
+           print(sms_response)
+           #catching error
         except Exception as e:
-            print("There is fucking Error {}".format(e))
+            print("There is fucking Error {}".format(e)) 
 
     elif text == "5*2":
         response = "END Tuma ujumbe kwa watalaamu wetu wa kilimo kwa namba +255689737839."
-
+        
         try:
-            # sending msg
-            sms_response = sms.send(response, sms_phone_number)
-            print(sms_response)
-            # catching error
+           #sending msg
+           sms_response = sms.send(response, sms_phone_number)
+           print(sms_response)
+           #catching error
         except Exception as e:
-            print("There is fucking Error {}".format(e))
+            print("There is fucking Error {}".format(e)) 
 
     elif text == "5*3":
         response = "END Tuma barua pepe kwa watalaamu wetu wa kilimo kwa anwani smartshambaspecialist@live.com."
-
+        
         try:
-            # sending msg
-            sms_response = sms.send(
-                "Tuma barua pepe kwa watalaamu wetu wa kilimo kwa anwani smartshambaspecialist@live.com.", sms_phone_number)
-            print(sms_response)
-            # catching error
+           #sending msg
+           sms_response = sms.send("Tuma barua pepe kwa watalaamu wetu wa kilimo kwa anwani smartshambaspecialist@live.com.", sms_phone_number)
+           print(sms_response)
+           #catching error
         except Exception as e:
             print("There is fucking Error {}".format(e))
 
     elif text == '4':
         # Mkulima Mnunuzi
         response = "CON Chagua chaguo:\n"
-        response += "1. Kujua kiwango cha virutubisho kwenye sahmba lako\n"
-        response += "2. Kujua kiwango cha unyevu kwenye shamba lako\n"
-
+        response += "1. Tafuta Mazao\n"
+        response += "2. Nunua Mazao"
     elif text == '4*1':
         # Tafuta Mazao
-        response = "CON Ingiza code namba yako:\n"
+        response = "CON Ingiza jina la mkoa:\n"
     elif text.startswith('4*1*'):
         # Tafuta Mazao kulingana na mkoa
         region = text.split('*')[2]
         crops = get_crops_by_region(region)
         if crops:
-            response = (f"END Kiwango cha virutubisho kwenye shamba lako ni kama hifatavyo"
-                        f" Nitogen,,, \n")
-            # response = f"END Mazao yaliyopo katika mkoa wa {region} ni:\n"
-        # for crop in crops:
-        #     response += f"- {crop}\n"
+            response = f"END Mazao yaliyopo katika mkoa wa {region} ni:\n"
+        for crop in crops:
+            response += f"- {crop}\n"
 
         try:
             # sending msg
@@ -329,6 +327,7 @@ def ussd_callback():
             # catching error
         except Exception as e:
             print("There is fucking Error {}".format(e))
+
 
         else:
             response = "END Hakuna mazao yaliyopatikana katika mkoa huo."
@@ -352,12 +351,19 @@ def ussd_callback():
         except Exception as e:
             print("There is fucking Error {}".format(e))
 
+
+
         else:
             response = "END Hakuna wauzaji walioorodheshwa kwa mazao hayo."
 
+
+
     else:
         # Uingiaji usiofaa
-        response = "END Uingiaji usiofaa. Tafadhali chagua chaguo sahihi."
+         response = "END Uingiaji usiofaa. Tafadhali chagua chaguo sahihi."
+
+
+
 
     # elif text == 3:
 
@@ -377,11 +383,15 @@ def ussd_callback():
     #     else:
     #         response = "END Hali ya hewa haipatikani kwa sasa"
 
+
     # else:
     #     response = "END Tafadhali Hakikisha na Jaribu tena Tafadhari."
 
         # return response
 
+    
+
+    
     #     #sub menu 1*1
     #     response = "END Asante sana kwa hilo chaguo Tutawasiliana na wewe kupitia hii  namba{}".format(phone_number)
     # elif text == "3":
@@ -402,10 +412,9 @@ def ussd_callback():
     #     response = "END Your account balance is USD {}".format(account_balance)
     # else:
     #     response = "END Invalid input. Try again."
-
+    
     return response
-
-
+    
 def get_maize_price(location):
     if location == "Arusha":
         return "100,000"
@@ -439,7 +448,6 @@ def get_maize_price(location):
         return "90,000"
     else:
         return None
-
 
 def get_beans_price(location):
     # Bei ya maharage kulingana na eneo
@@ -476,7 +484,6 @@ def get_beans_price(location):
     else:
         return None
 
-
 def get_potato_price(location):
     # Bei ya viazi kulingana na eneo
     if location == "Arusha":
@@ -496,7 +503,6 @@ def get_potato_price(location):
 
     else:
         return None
-
 
 def get_uwele_price(location):
     if location == "Arusha":
@@ -531,8 +537,6 @@ def get_uwele_price(location):
         return "90,000"
     else:
         return None
-
-
 def get_ulezi_price(location):
     if location == "Arusha":
         return "100,000"
@@ -566,7 +570,6 @@ def get_ulezi_price(location):
         return "90,000"
     else:
         return None
-
 
 def get_mtama_price(location):
     if location == "Arusha":
@@ -602,7 +605,6 @@ def get_mtama_price(location):
     else:
         return None
 
-
 def get_ngano_price(location):
     if location == "Arusha":
         return "100,000"
@@ -637,8 +639,6 @@ def get_ngano_price(location):
     else:
         return None
 # Mantiki ya kupata wauzaji kulingana na jina la mazao (data hardcoded)
-
-
 def get_sellers_by_crop(crop_name):
     if crop_name == 'Mahindi':
         sellers = [
@@ -689,7 +689,6 @@ def get_sellers_by_crop(crop_name):
         sellers = []
     return sellers
 
-
 def get_crops_by_region(region):
     if region == 'Arusha':
         crops = ["Mahindi", "Mpunga"]
@@ -702,40 +701,31 @@ def get_crops_by_region(region):
     return crops
 
 
-def get_weather_data(location):
-    # Replace with your Meteomatics API username and password
-    username = 'universityofdaressalaam_katani_adam'
-    password = '14J5fpGpGS'
-    
-    # Meteomatics API endpoint for current weather data
-    base_url = "https://api.meteomatics.com/"
-    # Use a specific time, e.g., 'now'
-    time = 'now'
-    # Define the parameters for the API call
-    params = f"{time}/t_2m,C/precip_1h:mm/{location}/json"
 
-    # Construct the full URL
-    url = f"{base_url}{params}"
+def get_weather_data(location):
+    # Pata taarifa ya hali ya hewa kutoka OpenWeather API
+    base_url = "https://api.openweathermap.org/data/2.5/weather"
+    params = {
+        "q": location,
+        "appid": '208912e57d4dc5b2cbd3060ef955416a',
+        "units": "metric"
+    }
 
     try:
-        # Make the request with basic authentication
-        response = requests.get(url, auth=(username, password))
+        response = requests.get(base_url, params=params)
         data = response.json()
 
         if response.status_code == 200:
             weather_data = {
-                "temperature": data['data'][0]['coordinates'][0]['dates'][0]['value'],
-                "precipitation": data['data'][1]['coordinates'][0]['dates'][0]['value'],
-                "description": "Current weather data retrieved"
+                "temperature": data["main"]["temp"],
+                "description": data["weather"][0]["description"]
             }
             return weather_data
         else:
             return None
 
     except requests.exceptions.RequestException:
-        return "There is an error in the request"
-
-
+        return ("There is the fucking error here ")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=os.environ.get("PORT"))
