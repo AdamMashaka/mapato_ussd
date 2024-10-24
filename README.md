@@ -1,4 +1,4 @@
-#welcome to MAPATO AI USSD  repository
+# welcome to MAPATO AI USSD  repository
 
 **here is the special repository where we can run ussd of our mapato AI system**
 
