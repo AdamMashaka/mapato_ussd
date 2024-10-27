@@ -10,7 +10,7 @@ def smart_shamba():
 
 
 word_responses = {
-    "habari": "Salama, KARIBU Kijani cart Karibu Tukuhudumie",
+    "habari": "Salama, KARIBU MApato AI Karibu Tukuhudumie",
     "mnatoa huduma gani": "Tunatoa huduma za kukujulisha juu ya hali ya hewa, wadudu wa mazao na pia kukupatia soko la kuuza mazao yako.",
     "mnapatikana wapi": "Tunapatikana Dar Es Salaam jengo la Sky City floor ya 12.",
     "naweza pata maswasiliano yenu": "Unaweza ukapiga namba ya ofisi ambayo ni 0687887685. \n email: smartshambainfo.com \n ",
