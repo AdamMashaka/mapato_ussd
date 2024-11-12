@@ -1,12 +1,12 @@
-from flask import Flask, request
-import africastalking
+from flask import Flask, request 
+import africastalking 
 import os
-import requests
+import requests 
 
 
 app = Flask(__name__)
 username = "sandbox"
-api_key = "atsk_d65b63bd0ac289c10ac7e4cf16747915b1733bb096aebaa905af0776ce74a60222b7d1c5"
+api_key = "atsk_6c452c8900152c7252a53f87dd001d2da39e85dccda86933e426e668a60e7c8e0115b1e8"
 africastalking.initialize(username, api_key)
 sms = africastalking.SMS
 
