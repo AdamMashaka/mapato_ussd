@@ -6,7 +6,7 @@ import requests
 
 app = Flask(__name__)
 username = "sandbox"
-api_key = "atsk_6c452c8900152c7252a53f87dd001d2da39e85dccda86933e426e668a60e7c8e0115b1e8"
+api_key = "atsk_0bba4b807c90e26c930cc206d384414f2d38038b717718bc0a1a6801d23a4e056a4a8054"
 africastalking.initialize(username, api_key)
 sms = africastalking.SMS
 
