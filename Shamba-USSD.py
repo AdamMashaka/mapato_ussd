@@ -6,14 +6,14 @@ import requests
 
 app = Flask(__name__)
 username = "sandbox"
-api_key = "atsk_0bba4b807c90e26c930cc206d384414f2d38038b717718bc0a1a6801d23a4e056a4a8054"
+api_key = "atsk_0bba4b807c90e26c930cc206d384414f2d38038b717718bc0a1a6801d23a"
 africastalking.initialize(username, api_key)
 sms = africastalking.SMS
 
 @app.route('/', methods=['POST', 'GET'])
 def ussd_callback():
     global response_1, response_2
-    session_id = request.values.get("sessionId", "atsk_d65b63bd0ac289c10ac7e4cf16747915b1733bb096aebaa905af0776ce74a60222b7d1c5")
+    session_id = request.values.get("sessionId", "atsk_d65b63bd0ac289c10ac7e4cf16747915b1733bb096aebaa905af0776ce74a60222b7d1")
     service_code = request.values.get("serviceCode", "*384#")
     phone_number = request.values.get("phoneNumber", +255694021848)
     text = request.values.get("text", "default")
